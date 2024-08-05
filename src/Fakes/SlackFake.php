@@ -4,7 +4,7 @@ namespace jeremykenedy\Slack\Laravel\Fakes;
 
 use jeremykenedy\Slack\Client;
 use jeremykenedy\Slack\Message;
-use PHPUnit_Framework_Assert as PHPUnit;
+use PHPUnit\Framework\Assert;
 
 class SlackFake extends Client
 {
@@ -17,7 +17,7 @@ class SlackFake extends Client
 
     public function assertTrue($callback)
     {
-        PHPUnit::assertTrue($callback());
+        Assert::assertTrue($callback());
     }
 
     public function sendMessage(Message $message)
@@ -27,19 +27,19 @@ class SlackFake extends Client
 
     public function assertMessageSent($callback = null)
     {
-        PHPUnit::assertTrue($this->messages->count() > 0);
+        Assert::assertTrue($this->messages->count() > 0);
 
         if ($callback) {
-            PHPUnit::assertTrue($callback($this->messages, null));
+            Assert::assertTrue($callback($this->messages, null));
         }
     }
 
     public function assertMessageSentTo($channel, $callback = null)
     {
-        PHPUnit::assertTrue($this->messages->count() > 0);
+        Assert::assertTrue($this->messages->count() > 0);
 
         if ($callback) {
-            PHPUnit::assertTrue($callback($this->messages->filter(function ($m) use ($channel) {
+            Assert::assertTrue($callback($this->messages->filter(function ($m) use ($channel) {
                 return $m->getChannel() == $channel;
             }), null));
         }
