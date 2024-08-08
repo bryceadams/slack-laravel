@@ -44,4 +44,13 @@ class SlackFake extends Client
             }), null));
         }
     }
+    
+    public function assertMessageNotSent($callback = null)
+    {
+        Assert::assertTrue($this->messages->count() === 0);
+
+        if ($callback) {
+            Assert::assertTrue($callback($this->messages, null));
+        }
+    }
 }
